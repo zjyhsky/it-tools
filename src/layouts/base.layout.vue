@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { NIcon, useThemeVars } from 'naive-ui';
+import { NIcon, useThemeVars, NModal, NImage } from 'naive-ui';
 
 import { RouterLink } from 'vue-router';
 import { Heart, Home2, Menu2 } from '@vicons/tabler';
@@ -30,6 +30,17 @@ const tools = computed<ToolCategory[]>(() => [
   ...(favoriteTools.value.length > 0 ? [{ name: t('tools.categories.favorite-tools'), components: favoriteTools.value }] : []),
   ...toolsByCategory.value,
 ]);
+
+// ========== 弹层相关状态 ==========
+const showQrModal = ref(false);
+const qrImageUrl = ref('');
+const qrTitle = ref('');
+
+function openQrModal(title: string, url: string) {
+  qrTitle.value = title;
+  qrImageUrl.value = url;
+  showQrModal.value = true;
+}
 </script>
 
 <template>
@@ -119,34 +130,66 @@ const tools = computed<ToolCategory[]>(() => [
         <div>
           <NavbarButtons v-if="!styleStore.isSmallScreen" />
         </div>
-        <c-tooltip position="bottom" tooltip="赞赏">
+
+        <!-- ========== 微信赞赏按钮 ========== -->
+        <c-tooltip position="bottom" tooltip="微信赞赏">
           <c-button
             round
-            href="https://picture.6070809.xyz/file/1782652150597_wx.jpg"
-            rel="noopener"
-            target="_blank"
             class="support-button"
             :bordered="false"
+            @click="openQrModal('微信赞赏', 'https://picture.6070809.xyz/file/1782652150597_wx.jpg')"
           >
             微信赞赏
           </c-button>
         </c-tooltip>
-        <c-tooltip position="bottom" tooltip="赞赏">
+
+        <!-- ========== 支付宝赞赏按钮 ========== -->
+        <c-tooltip position="bottom" tooltip="支付宝赞赏">
           <c-button
             round
-            href="https://picture.6070809.xyz/file/1782652562437_ali.jpg"
-            rel="noopener"
-            target="_blank"
             class="support-button"
             :bordered="false"
+            @click="openQrModal('支付宝赞赏', 'https://picture.6070809.xyz/file/1782652562437_ali.jpg')"
           >
             支付宝赞赏
           </c-button>
-        </c-tooltip>  
+        </c-tooltip>
       </div>
       <slot />
     </template>
   </MenuLayout>
+
+  <!-- ========== 二维码弹层 ========== -->
+  <NModal
+    v-model:show="showQrModal"
+    preset="card"
+    :title="qrTitle"
+    style="width: 400px; max-width: 90vw;"
+    :bordered="false"
+    size="huge"
+    :segmented="{ content: true, footer: true }"
+  >
+    <div flex flex-col items-center justify-center py-4>
+      <NImage
+        :src="qrImageUrl"
+        :alt="qrTitle"
+        width="300"
+        height="300"
+        object-fit="contain"
+        preview-disabled
+      />
+      <p mt-4 text-gray-500 text-sm>
+        扫描二维码进行赞赏
+      </p>
+    </div>
+    <template #footer>
+      <div flex justify-center>
+        <c-button @click="showQrModal = false">
+          关闭
+        </c-button>
+      </div>
+    </template>
+  </NModal>
 </template>
 
 <style lang="less" scoped>
