@@ -119,7 +119,6 @@ const tools = computed<ToolCategory[]>(() => [
         <div>
           <NavbarButtons v-if="!styleStore.isSmallScreen" />
         </div>
-
         <c-tooltip position="bottom" tooltip="赞赏">
           <c-button
             round
@@ -132,20 +131,18 @@ const tools = computed<ToolCategory[]>(() => [
             微信赞赏
           </c-button>
         </c-tooltip>
-
-      <c-tooltip position="bottom" tooltip="赞赏">
-        <c-button
-          round
-          href="https://picture.6070809.xyz/file/1782652562437_ali.jpg"
-          rel="noopener"
-          target="_blank"
-          class="support-button"
-          :bordered="false"
-        >
-          支付宝赞赏
-        </c-button>
-      </c-tooltip>
-  
+        <c-tooltip position="bottom" tooltip="赞赏">
+          <c-button
+            round
+            href="https://picture.6070809.xyz/file/1782652562437_ali.jpg"
+            rel="noopener"
+            target="_blank"
+            class="support-button"
+            :bordered="false"
+          >
+            支付宝赞赏
+          </c-button>
+        </c-tooltip>  
       </div>
       <slot />
     </template>
