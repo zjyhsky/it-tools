@@ -120,22 +120,8 @@ const tools = computed<ToolCategory[]>(() => [
           <NavbarButtons v-if="!styleStore.isSmallScreen" />
         </div>
 
-        <c-tooltip position="bottom" :tooltip="$t('home.support')">
+        <c-tooltip position="bottom" tooltip="赞赏">
           <c-button
-            round
-            href="https://www.buymeacoffee.com/cthmsst"
-            rel="noopener"
-            target="_blank"
-            class="support-button"
-            :bordered="false"
-            @click="() => tracker.trackEvent({ eventName: 'Support button clicked' })"
-          >
-            {{ $t('home.buyMeACoffee') }}
-            <NIcon v-if="!styleStore.isSmallScreen" :component="Heart" ml-2 />
-          </c-button>
-        </c-tooltip>
-      <c-tooltip position="bottom" tooltip="赞赏">
-        <c-button
             round
             href="https://picture.6070809.xyz/file/1782652150597_wx.jpg"
             rel="noopener"
@@ -147,20 +133,19 @@ const tools = computed<ToolCategory[]>(() => [
           </c-button>
         </c-tooltip>
 
-    <c-tooltip position="bottom" tooltip="赞赏">
-      <c-button
-        round
-        href="https://picture.6070809.xyz/file/1782652562437_ali.jpg"
-        rel="noopener"
-        target="_blank"
-        class="support-button"
-        :bordered="false"
-      >
-        支付宝赞赏
-      </c-button>
-    </c-tooltip>
-
-        
+      <c-tooltip position="bottom" tooltip="赞赏">
+        <c-button
+          round
+          href="https://picture.6070809.xyz/file/1782652562437_ali.jpg"
+          rel="noopener"
+          target="_blank"
+          class="support-button"
+          :bordered="false"
+        >
+          支付宝赞赏
+        </c-button>
+      </c-tooltip>
+  
       </div>
       <slot />
     </template>
